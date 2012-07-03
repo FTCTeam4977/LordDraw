@@ -2,22 +2,17 @@ package org.team4977.LordDraw;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.Iterator;
 import java.util.Vector;
 
-import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
 
+@SuppressWarnings("serial")
 public class Waypoints extends JPanel {
 	Vector<Point> points = new Vector<Point>();
 	
@@ -54,6 +49,7 @@ public class Waypoints extends JPanel {
 					System.out.println(p.toString());
 				}
 			}
+			fReader.close();
 		} catch (Throwable e) {
 			System.out.println("Failed to open file");
 			e.printStackTrace();

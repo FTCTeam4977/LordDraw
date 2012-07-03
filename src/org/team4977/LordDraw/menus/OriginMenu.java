@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+@SuppressWarnings("serial")
 public class OriginMenu extends JMenu {
 	JMenuItem red1 = new JMenuItem("Red Outside");
 	JMenuItem red2 = new JMenuItem("Red Inside");

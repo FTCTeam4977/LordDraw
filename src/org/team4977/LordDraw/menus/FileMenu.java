@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+@SuppressWarnings("serial")
 public class FileMenu extends JMenu
 {
 	JMenuItem open = new JMenuItem("Open...");

@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuBar;
 
 
+@SuppressWarnings("serial")
 public class LordDrawMenu extends JMenuBar {
 	FileMenu file = new FileMenu();
 	OriginMenu startpoint = new OriginMenu();

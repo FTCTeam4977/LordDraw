@@ -1,7 +1,6 @@
 package org.team4977.LordDraw;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -11,7 +10,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import javax.imageio.ImageIO;
@@ -21,6 +19,7 @@ import javax.swing.JOptionPane;
 
 import org.team4977.LordDraw.menus.LordDrawMenu;
 
+@SuppressWarnings("serial")
 public class LordDraw extends JFrame implements MouseListener, MouseMotionListener, KeyListener, ActionListener {
 	static BufferedImage fieldImage;
 	static public Dimension wsize;
