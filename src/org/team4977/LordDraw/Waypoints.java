@@ -1,3 +1,4 @@
+package org.team4977.LordDraw;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -13,6 +14,13 @@ import javax.swing.JPanel;
 
 public class Waypoints extends JPanel {
 	Vector<Point> points = new Vector<Point>();
+	
+	static public Point RED_OUTSIDE = new Point(347, 426);
+	static public Point RED_INSIDE = new Point(433, 426);
+	
+	static public Point BLUE_OUTSIDE = new Point(42,119);
+	static public Point BLUE_INSIDE = new Point(42,40);
+	
 	public Waypoints(LordDraw ml)
 	{
 		super();
@@ -20,7 +28,15 @@ public class Waypoints extends JPanel {
 		addMouseMotionListener(ml);
 		addKeyListener(ml);
 		setPreferredSize(LordDraw.size);
+		
 		setVisible(true);
+	}
+	
+	public void setOrigin(Point p)
+	{
+		if ( points.size() == 0 )
+			points.add(0, p);
+		else points.get(0).setLocation(p.getX(), p.getY());
 	}
 	
 	public void addWaypoint(Point p)
@@ -36,6 +52,14 @@ public class Waypoints extends JPanel {
 	public void delete(int pID)
 	{
 		points.remove(pID);
+	}
+	
+	public void reset()
+	{
+		for ( int i = 0; i < points.size(); i++ )
+			delete(i);
+		points = new Vector<Point>();
+		LordDraw.selected = -1;
 	}
 	
 	public int getContactedPointID(Point mouse)
@@ -79,5 +103,10 @@ public class Waypoints extends JPanel {
 			previousWasSelected = (i == LordDraw.selected);
 		}
     }
+	
+	public int len()
+	{
+		return points.size();
+	}
 
 }

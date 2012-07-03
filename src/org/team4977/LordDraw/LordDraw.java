@@ -1,5 +1,9 @@
+package org.team4977.LordDraw;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -10,36 +14,44 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
-public class LordDraw extends JFrame implements MouseListener, MouseMotionListener, KeyListener {
+import org.team4977.LordDraw.menus.LordDrawMenu;
+
+public class LordDraw extends JFrame implements MouseListener, MouseMotionListener, KeyListener, ActionListener {
 	static BufferedImage fieldImage;
 	static public Dimension size;
 	Waypoints points = new Waypoints(this);
 	public static int selected = -1;
+	LordDrawMenu menu = new LordDrawMenu();
 	public LordDraw()
 	{
 		super();
-		
-		add(points);
+		setResizable(false);
+		menu.addActionListener(this);
+		setLayout(new BorderLayout());
+		add(menu, BorderLayout.NORTH);
+		add(points, BorderLayout.CENTER);
+		points.setLocation(0, 500);
 		setTitle("LordDraw");
 		setVisible(true);
 		setSize(size);
-		points.addWaypoint(new Point(347, 426));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addKeyListener(this);
 	}
 	
 	public static void main(String[] args) throws MalformedURLException, IOException {
 		fieldImage = ImageIO.read(new File("field.png"));
-		size = new Dimension(fieldImage.getHeight()+17, fieldImage.getWidth()+37);
+		size = new Dimension(fieldImage.getHeight()+17, fieldImage.getWidth()+60);
 		new LordDraw();
 	}
 
 
 	@Override
 	public void mouseClicked(MouseEvent m) {
-		if ( m.getButton() == MouseEvent.BUTTON3 )
+		if ( m.getButton() == MouseEvent.BUTTON3 && points.len() != 0 )
 		{
 			points.addWaypoint(m.getPoint());
 			System.out.println("New point at ("+m.getX()+", "+m.getY()+")");
@@ -90,7 +102,8 @@ public class LordDraw extends JFrame implements MouseListener, MouseMotionListen
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent m) {}
+	public void mouseMoved(MouseEvent m) {
+	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -108,14 +121,49 @@ public class LordDraw extends JFrame implements MouseListener, MouseMotionListen
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent a) {
+		switch ( a.getActionCommand() )
+		{
+			// File Menu
+			case "Open...":
+				JFileChooser openFC = new JFileChooser();
+				if ( openFC.showOpenDialog(this) == JFileChooser.APPROVE_OPTION )
+				{
+					System.out.println("Selected "+openFC.getSelectedFile().getName());
+				}
+				break;
+			case "Clear...":
+				int selected = JOptionPane.showConfirmDialog(null, "Clear?");
+				if ( selected == 0 ) // 0 is "Yes"
+					points.reset();
+				break;
+			case "Exit":
+				System.exit(0);
+				break;
+			// Origin menu
+			case "Red Outside":
+				points.setOrigin(Waypoints.RED_OUTSIDE);
+				break;
+			case "Red Inside":
+				points.setOrigin(Waypoints.RED_INSIDE);
+				break;
+			case "Blue Outside":
+				points.setOrigin(Waypoints.BLUE_OUTSIDE);
+				break;
+			case "Blue Inside":
+				points.setOrigin(Waypoints.BLUE_INSIDE);
+				break;
+			default:
+				System.out.println("Unhandled action: "+a.getActionCommand());
+		}
+		repaint();
 	}
 
 }
