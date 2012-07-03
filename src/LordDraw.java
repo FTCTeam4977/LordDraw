@@ -1,15 +1,11 @@
 import java.awt.Dimension;
 import java.awt.Frame;
-import java.awt.MenuBar;
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
 import java.util.Vector;
 
-import javax.swing.JPanel;
 
-import lobos.andrew.game.core.Renderer;
 
 
 public class LordDraw extends Frame implements MouseListener  {
