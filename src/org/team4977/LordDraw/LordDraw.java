@@ -41,6 +41,7 @@ public class LordDraw extends JFrame implements MouseListener, MouseMotionListen
 		setSize(wsize);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addKeyListener(this);
+		setLocationRelativeTo(null);
 	}
 	
 	public static void main(String[] args) throws MalformedURLException, IOException {
