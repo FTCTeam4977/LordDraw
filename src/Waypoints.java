@@ -58,16 +58,25 @@ public class Waypoints extends JPanel {
 		super.paintComponent(g);
 		g.drawImage(LordDraw.fieldImage, 0, 0, Color.white, null);
 		Point previousPoint = null;
+		boolean previousWasSelected = false;
 		for ( int i = 0; i < points.size(); i++ )
 		{
 			Point p = points.get(i);
 			if ( i == LordDraw.selected )
 				g.setColor(Color.GREEN);
+
 			g.fillRect((int)p.getX()-10, (int)p.getY()-10, 20, 20);
-			g.setColor(Color.GRAY);
+			
 			if ( previousPoint != null )
+			{
+				if ( previousWasSelected )
+					g.setColor(Color.GREEN);
 				g.drawLine((int)p.getX(), (int)p.getY(), (int)previousPoint.getX(), (int)previousPoint.getY());
+			}
+			
+			g.setColor(Color.GRAY);
 			previousPoint = p;
+			previousWasSelected = (i == LordDraw.selected);
 		}
     }
 
