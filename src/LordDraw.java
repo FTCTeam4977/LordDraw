@@ -1,5 +1,7 @@
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -10,7 +12,7 @@ import java.net.MalformedURLException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-public class LordDraw extends JFrame implements MouseListener, MouseMotionListener {
+public class LordDraw extends JFrame implements MouseListener, MouseMotionListener, KeyListener {
 	static BufferedImage fieldImage;
 	static public Dimension size;
 	Waypoints points = new Waypoints(this);
@@ -25,6 +27,7 @@ public class LordDraw extends JFrame implements MouseListener, MouseMotionListen
 		setSize(size);
 		points.addWaypoint(new Point(347, 426));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		addKeyListener(this);
 	}
 	
 	public static void main(String[] args) throws MalformedURLException, IOException {
@@ -88,5 +91,31 @@ public class LordDraw extends JFrame implements MouseListener, MouseMotionListen
 
 	@Override
 	public void mouseMoved(MouseEvent m) {}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if ( e.getKeyCode() == 127 || e.getKeyCode() == 8 )
+		{
+			if ( selected != -1 )
+			{
+				points.delete(selected);
+				selected = -1;
+				repaint();
+			}
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

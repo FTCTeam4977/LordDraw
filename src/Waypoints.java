@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
 import java.util.Iterator;
@@ -16,6 +18,7 @@ public class Waypoints extends JPanel {
 		super();
 		addMouseListener(ml);
 		addMouseMotionListener(ml);
+		addKeyListener(ml);
 		setPreferredSize(LordDraw.size);
 		setVisible(true);
 	}
@@ -40,7 +43,7 @@ public class Waypoints extends JPanel {
 		for ( int i = 0; i < points.size(); i++ )
 		{
 			Point thisPoint = points.get(i);
-			if ( (new Rectangle2D.Double(thisPoint.getX()-10, thisPoint.getY()-10, 20, 20)).contains(mouse) )
+			if ( (new Rectangle2D.Double(thisPoint.getX()-10, thisPoint.getY()-10, 20, 20)).contains(mouse) && i != 0 )
 			{
 				return i;
 			}
@@ -67,4 +70,5 @@ public class Waypoints extends JPanel {
 			previousPoint = p;
 		}
     }
+
 }
