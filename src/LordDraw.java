@@ -1,4 +1,5 @@
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -21,6 +22,7 @@ public class LordDraw extends JFrame implements MouseListener  {
 		setTitle("LordDraw");
 		setVisible(true);
 		setSize(size);
+		points.addWaypoint(new Point(347, 426));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
