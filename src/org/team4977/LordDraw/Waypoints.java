@@ -6,9 +6,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.Iterator;
 import java.util.Vector;
 
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
 
@@ -27,9 +33,51 @@ public class Waypoints extends JPanel {
 		addMouseListener(ml);
 		addMouseMotionListener(ml);
 		addKeyListener(ml);
-		setPreferredSize(LordDraw.size);
+		setPreferredSize(LordDraw.wsize);
 		
 		setVisible(true);
+	}
+	
+	public void loadFromFile(File f)
+	{
+		try {
+			BufferedReader fReader = new BufferedReader(new FileReader(f));
+			LordDraw.selected = -1;
+			points = new Vector<Point>();
+			while ( fReader.ready() )
+			{
+				String[] thisLine = fReader.readLine().split(",");
+				if ( thisLine.length == 2 )
+				{
+					Point p = new Point(Integer.parseInt(thisLine[0]), Integer.parseInt(thisLine[1]));
+					points.add(p);
+					System.out.println(p.toString());
+				}
+			}
+		} catch (Throwable e) {
+			System.out.println("Failed to open file");
+			e.printStackTrace();
+		}
+	}
+	
+	public void writeToFile(File selectedFile)
+	{
+		try
+		{
+			if ( !selectedFile.exists() )
+				selectedFile.createNewFile();
+			FileWriter fWriter = new FileWriter(selectedFile);
+			for ( int i = 0; i < points.size(); i++ )
+			{
+				Point p = points.get(i);
+				fWriter.write((int)p.getX()+","+(int)p.getY()+"\n");
+			}
+			fWriter.flush();
+			fWriter.close();
+		} catch ( Throwable e )
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public void setOrigin(Point p)
@@ -107,6 +155,11 @@ public class Waypoints extends JPanel {
 	public int len()
 	{
 		return points.size();
+	}
+	
+	public Point getPoint(int i)
+	{
+		return points.get(i);
 	}
 
 }

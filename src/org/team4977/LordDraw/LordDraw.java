@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import javax.imageio.ImageIO;
@@ -22,7 +23,7 @@ import org.team4977.LordDraw.menus.LordDrawMenu;
 
 public class LordDraw extends JFrame implements MouseListener, MouseMotionListener, KeyListener, ActionListener {
 	static BufferedImage fieldImage;
-	static public Dimension size;
+	static public Dimension wsize;
 	Waypoints points = new Waypoints(this);
 	public static int selected = -1;
 	LordDrawMenu menu = new LordDrawMenu();
@@ -37,14 +38,14 @@ public class LordDraw extends JFrame implements MouseListener, MouseMotionListen
 		points.setLocation(0, 500);
 		setTitle("LordDraw");
 		setVisible(true);
-		setSize(size);
+		setSize(wsize);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addKeyListener(this);
 	}
 	
 	public static void main(String[] args) throws MalformedURLException, IOException {
 		fieldImage = ImageIO.read(new File("field.png"));
-		size = new Dimension(fieldImage.getHeight()+17, fieldImage.getWidth()+60);
+		wsize = new Dimension(fieldImage.getHeight()+17, fieldImage.getWidth()+60);
 		new LordDraw();
 	}
 
@@ -135,9 +136,12 @@ public class LordDraw extends JFrame implements MouseListener, MouseMotionListen
 			case "Open...":
 				JFileChooser openFC = new JFileChooser();
 				if ( openFC.showOpenDialog(this) == JFileChooser.APPROVE_OPTION )
-				{
-					System.out.println("Selected "+openFC.getSelectedFile().getName());
-				}
+					points.loadFromFile(openFC.getSelectedFile());
+				break;
+			case "Save...":
+				JFileChooser saveFC = new JFileChooser();
+				if ( saveFC.showSaveDialog(this) == JFileChooser.APPROVE_OPTION )
+					points.writeToFile(saveFC.getSelectedFile());
 				break;
 			case "Clear...":
 				int selected = JOptionPane.showConfirmDialog(null, "Clear?");
