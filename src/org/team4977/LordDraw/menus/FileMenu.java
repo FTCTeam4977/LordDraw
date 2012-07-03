@@ -8,8 +8,7 @@ import javax.swing.JMenuItem;
 public class FileMenu extends JMenu
 {
 	JMenuItem open = new JMenuItem("Open...");
-	JMenuItem save = new JMenuItem("Save");
-	JMenuItem saveAs = new JMenuItem("Save as...");
+	JMenuItem save = new JMenuItem("Save...");
 	JMenuItem clear = new JMenuItem("Clear...");
 	JMenuItem exit = new JMenuItem("Exit");
 	public FileMenu()
@@ -17,7 +16,6 @@ public class FileMenu extends JMenu
 		super("File");
 		add(open);
 		add(save);
-		add(saveAs);
 		add(clear);
 		add(exit);
 	}
@@ -26,7 +24,6 @@ public class FileMenu extends JMenu
 	{
 		open.addActionListener(al);
 		save.addActionListener(al);
-		saveAs.addActionListener(al);
 		clear.addActionListener(al);
 		exit.addActionListener(al);
 	}
