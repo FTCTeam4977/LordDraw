@@ -2,6 +2,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -9,11 +10,11 @@ import java.net.MalformedURLException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-public class LordDraw extends JFrame implements MouseListener  {
+public class LordDraw extends JFrame implements MouseListener, MouseMotionListener {
 	static BufferedImage fieldImage;
 	static public Dimension size;
 	Waypoints points = new Waypoints(this);
-	
+	public static int selected = -1;
 	public LordDraw()
 	{
 		super();
@@ -35,11 +36,13 @@ public class LordDraw extends JFrame implements MouseListener  {
 
 	@Override
 	public void mouseClicked(MouseEvent m) {
-		if ( m.getButton() == m.BUTTON3 )
+		if ( m.getButton() == MouseEvent.BUTTON3 )
 		{
 			points.addWaypoint(m.getPoint());
 			System.out.println("New point at ("+m.getX()+", "+m.getY()+")");
 		}
+		else
+			System.out.println(points.getContactedPointID(m.getPoint()));
 		points.repaint();
 		repaint();
 		
@@ -47,30 +50,43 @@ public class LordDraw extends JFrame implements MouseListener  {
 
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseEntered(MouseEvent m) {
 	}
 
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseExited(MouseEvent m) {
 	}
 
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mousePressed(MouseEvent m) {
+		System.out.println("pressed");
+		if ( m.getButton() == MouseEvent.BUTTON1 )
+		{
+			selected = points.getContactedPointID(m.getPoint());
+			System.out.println("Dragging "+selected);
+		}
+		repaint();
 	}
 
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseReleased(MouseEvent m) {
+		repaint();
 	}
+
+	@Override
+	public void mouseDragged(MouseEvent m) {
+		if ( selected != -1 )
+		{
+			System.out.println("Moving "+selected+" to "+m.getPoint().toString());
+			points.modify(selected, m.getPoint());
+		}
+		repaint();
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent m) {}
 
 }
