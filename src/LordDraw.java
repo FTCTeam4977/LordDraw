@@ -8,9 +8,6 @@ import java.net.MalformedURLException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-
-
-
 public class LordDraw extends JFrame implements MouseListener  {
 	static BufferedImage fieldImage;
 	static public Dimension size;
@@ -23,14 +20,13 @@ public class LordDraw extends JFrame implements MouseListener  {
 		add(points);
 		setTitle("LordDraw");
 		setVisible(true);
-		setSize(469,468);
+		setSize(size);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	public static void main(String[] args) throws MalformedURLException, IOException {
 		fieldImage = ImageIO.read(new File("field.png"));
-		size = new Dimension(fieldImage.getHeight(), fieldImage.getWidth());
-		size = new Dimension(469,468);
+		size = new Dimension(fieldImage.getHeight()+17, fieldImage.getWidth()+37);
 		new LordDraw();
 	}
 
