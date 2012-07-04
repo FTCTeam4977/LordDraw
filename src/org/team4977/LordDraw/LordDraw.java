@@ -1,6 +1,7 @@
 package org.team4977.LordDraw;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -16,6 +17,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import org.team4977.LordDraw.menus.LordDrawMenu;
 
@@ -146,6 +149,22 @@ public class LordDraw extends JFrame implements MouseListener, MouseMotionListen
 			JFileChooser saveFC = new JFileChooser();
 			if ( saveFC.showSaveDialog(this) == JFileChooser.APPROVE_OPTION )
 				points.writeToFile(saveFC.getSelectedFile());
+		}
+		else if ( cmd == "Export" )
+		{
+			String export = "";
+			JTextArea txtArea = new JTextArea();
+			txtArea.setEditable(false);
+			
+			for ( int i = 0; i < points.len(); i++ )
+			{
+				Point p = points.getPoint(i);
+				export += "driveToPoint("+p.getX()+", "+p.getY()+");\n";
+			}
+			txtArea.setText(export);
+			JScrollPane scrollPane = new JScrollPane(txtArea);
+			scrollPane.setPreferredSize(new Dimension(350, 150));
+			JOptionPane.showMessageDialog(this, scrollPane, "Export Successful", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else if ( cmd == "Clear..." )
 		{

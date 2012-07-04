@@ -10,6 +10,7 @@ public class FileMenu extends JMenu
 {
 	JMenuItem open = new JMenuItem("Open...");
 	JMenuItem save = new JMenuItem("Save...");
+	JMenuItem export = new JMenuItem("Export");
 	JMenuItem clear = new JMenuItem("Clear...");
 	JMenuItem exit = new JMenuItem("Exit");
 	public FileMenu()
@@ -17,6 +18,7 @@ public class FileMenu extends JMenu
 		super("File");
 		add(open);
 		add(save);
+		add(export);
 		add(clear);
 		add(exit);
 	}
@@ -25,6 +27,7 @@ public class FileMenu extends JMenu
 	{
 		open.addActionListener(al);
 		save.addActionListener(al);
+		export.addActionListener(al);
 		clear.addActionListener(al);
 		exit.addActionListener(al);
 	}
