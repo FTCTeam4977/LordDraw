@@ -58,6 +58,8 @@ public class LordDraw extends JFrame implements MouseListener, MouseMotionListen
 			points.addWaypoint(m.getPoint());
 			System.out.println("New point at ("+m.getX()+", "+m.getY()+")");
 		}
+		else if ( m.getButton() == MouseEvent.BUTTON3 && points.len() == 0 )
+			JOptionPane.showMessageDialog(null, "Select an origin first.");
 		else
 			System.out.println(points.getContactedPointID(m.getPoint()));
 		points.repaint();
