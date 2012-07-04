@@ -130,43 +130,41 @@ public class LordDraw extends JFrame implements MouseListener, MouseMotionListen
 
 	@Override
 	public void actionPerformed(ActionEvent a) {
-		switch ( a.getActionCommand() )
+		String cmd = a.getActionCommand();
+		
+		if ( cmd == "Open..." )
 		{
-			// File Menu
-			case "Open...":
-				JFileChooser openFC = new JFileChooser();
-				if ( openFC.showOpenDialog(this) == JFileChooser.APPROVE_OPTION )
-					points.loadFromFile(openFC.getSelectedFile());
-				break;
-			case "Save...":
-				JFileChooser saveFC = new JFileChooser();
-				if ( saveFC.showSaveDialog(this) == JFileChooser.APPROVE_OPTION )
-					points.writeToFile(saveFC.getSelectedFile());
-				break;
-			case "Clear...":
+			JFileChooser openFC = new JFileChooser();
+			if ( openFC.showOpenDialog(this) == JFileChooser.APPROVE_OPTION )
+				points.loadFromFile(openFC.getSelectedFile());
+		}
+		else if ( cmd == "Save..." )
+		{
+			JFileChooser saveFC = new JFileChooser();
+			if ( saveFC.showSaveDialog(this) == JFileChooser.APPROVE_OPTION )
+				points.writeToFile(saveFC.getSelectedFile());
+		}
+		else if ( cmd == "Clear..." )
+		{
 				int selected = JOptionPane.showConfirmDialog(null, "Clear?");
 				if ( selected == 0 ) // 0 is "Yes"
 					points.reset();
-				break;
-			case "Exit":
-				System.exit(0);
-				break;
-			// Origin menu
-			case "Red Outside":
-				points.setOrigin(Waypoints.RED_OUTSIDE);
-				break;
-			case "Red Inside":
-				points.setOrigin(Waypoints.RED_INSIDE);
-				break;
-			case "Blue Outside":
-				points.setOrigin(Waypoints.BLUE_OUTSIDE);
-				break;
-			case "Blue Inside":
-				points.setOrigin(Waypoints.BLUE_INSIDE);
-				break;
-			default:
-				System.out.println("Unhandled action: "+a.getActionCommand());
 		}
+		else if ( cmd == "Exit" )
+			System.exit(0);
+		
+		// Origin menu
+		else if ( cmd == "Red Outside" )
+			points.setOrigin(Waypoints.RED_OUTSIDE);
+		else if ( cmd == "Red Inside" )
+			points.setOrigin(Waypoints.RED_INSIDE);
+		else if ( cmd == "Blue Outside" )
+			points.setOrigin(Waypoints.BLUE_OUTSIDE);
+		else if ( cmd == "Blue Inside" )
+			points.setOrigin(Waypoints.BLUE_INSIDE);
+		else
+			System.out.println("Unhandled action: "+a.getActionCommand());
+		
 		repaint();
 	}
 
