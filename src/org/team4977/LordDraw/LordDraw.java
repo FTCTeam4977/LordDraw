@@ -54,6 +54,7 @@ public class LordDraw extends JFrame implements MouseListener, MouseMotionListen
 	public void mouseClicked(MouseEvent m) {
 		if ( m.getButton() == MouseEvent.BUTTON3 && points.len() != 0 )
 		{
+			selected = points.len();
 			points.addWaypoint(m.getPoint());
 			System.out.println("New point at ("+m.getX()+", "+m.getY()+")");
 		}
